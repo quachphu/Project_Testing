@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap');
+
+:root {
+  --bg:     #080810;
+  --bg2:    #0e0e1a;
+  --bg3:    #141424;
+  --amber:  #c9a84c;
+  --amber2: #e8c96a;
+  --teal:   #1db896;
+  --coral:  #e85d40;
+  --blue:   #4a90d9;
+  --cream:  #f2ede4;
+  --muted:  #5a5a78;
+  --muted2: #3a3a52;
+  --line:   rgba(255,255,255,0.07);
+  --line2:  rgba(255,255,255,0.13);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: var(--bg);
+  color: var(--cream);
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ─── GRAIN OVERLAY ──────────────────────────────────────────────────────── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.25;
+  mix-blend-mode: overlay;
+}
+
+/* ─── SCREEN TRANSITION ──────────────────────────────────────────────────── */
+.fade-in {
+  animation: fadeUp 500ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+/* ─── TYPOGRAPHY ─────────────────────────────────────────────────────────── */
+.font-display  { font-family: 'Bebas Neue', sans-serif; letter-spacing: 3px; }
+.font-mono     { font-family: 'DM Mono', monospace; }
+.font-story    { font-family: 'Playfair Display', serif; font-style: italic; }
+.label         { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+
+/* ─── BUTTONS ────────────────────────────────────────────────────────────── */
+.btn {
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 3px;
+  font-size: 16px;
+  padding: 14px 32px;
+  border: none;
+  cursor: pointer;
+  transition: all 220ms ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.btn-amber {
+  background: var(--amber);
+  color: #080810;
+}
+.btn-amber:hover { background: var(--amber2); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(201,168,76,0.35); }
+.btn-teal  { background: var(--teal); color: #080810; }
+.btn-teal:hover  { background: #25d4ac; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(29,184,150,0.35); }
+.btn-outline {
+  background: transparent;
+  color: var(--cream);
+  border: 1px solid var(--line2);
+}
+.btn-outline:hover { border-color: var(--amber); color: var(--amber); }
+
+/* ─── CARDS ──────────────────────────────────────────────────────────────── */
+.card {
+  background: var(--bg2);
+  border: 1px solid var(--line);
+  transition: border-color 200ms ease, box-shadow 200ms ease;
+}
+.card:hover { border-color: var(--line2); }
+.card-selected { border-color: var(--amber) !important; box-shadow: 0 0 0 1px var(--amber), 0 0 24px rgba(201,168,76,0.2); }
+
+/* ─── INPUTS ─────────────────────────────────────────────────────────────── */
+textarea, input[type="text"] {
+  background: var(--bg2);
+  border: 1px solid var(--line);
+  color: var(--cream);
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 17px;
+  padding: 20px;
+  width: 100%;
+  resize: none;
+  outline: none;
+  transition: border-color 200ms ease;
+}
+textarea:focus, input[type="text"]:focus { border-color: var(--amber); }
+textarea::placeholder, input::placeholder { color: var(--muted); }
+
+/* ─── AGENT COLORS ───────────────────────────────────────────────────────── */
+.agent-director    { --agent-color: var(--amber); }
+.agent-cinemato    { --agent-color: var(--teal);  }
+.agent-composer    { --agent-color: var(--coral); }
+.agent-continuity  { --agent-color: var(--blue);  }
+
+.agent-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--agent-color, var(--muted));
+  box-shadow: 0 0 8px var(--agent-color, transparent);
+}
+
+/* ─── CHIP ───────────────────────────────────────────────────────────────── */
+.chip {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 8px 16px;
+  border: 1px solid var(--line2);
+  background: var(--bg2);
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 180ms ease;
+  white-space: nowrap;
+}
+.chip:hover       { border-color: var(--amber); color: var(--amber); }
+.chip.active      { border-color: var(--amber); color: var(--amber); background: rgba(201,168,76,0.1); }
+.chip-teal.active { border-color: var(--teal);  color: var(--teal);  background: rgba(29,184,150,0.1); }
+
+/* ─── SCROLLBAR ──────────────────────────────────────────────────────────── */
+::-webkit-scrollbar       { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--muted2); border-radius: 2px; }
